@@ -4,17 +4,15 @@
 describe('Funcionalidade: Login', () => {
     //Teste dentro do bloco
 
-    beforeEach(() => { //Hook - gancho
+    beforeEach(() => { //Hook - gancho | Antes de cada teste entre na url
         cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/') // visita a url indicada
     });
 
-    afterEach(() => { // Depois de cada testes print a tela
+    afterEach(() => { // Hook - gancho | Depois de cada teste print a tela
         cy.screenshot()
     });
 
-
     // CENÁRIOS POSITIVOS
-
     it('Deve fazer login com sucesso', () => {  
         cy.get('#username').type('priscila.teste@teste.com.br')
         cy.get('#password').type('Teste@123')
@@ -22,9 +20,7 @@ describe('Funcionalidade: Login', () => {
         cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, priscila.teste (não é priscila.teste? Sair)')
     })
 
-
     // CENÁRIOS NEGATIVOS
-
     it('Deve exibir uma mensagem de erro ao inserir usuário inválido', () => { //it.only - testa apenas o caso selecionado  
         cy.get('#username').type('priscila@teste.com.br')
         cy.get('#password').type('Teste@123')
@@ -39,12 +35,5 @@ describe('Funcionalidade: Login', () => {
         cy.get('.woocommerce-form > .button').click()  
         cy.get('.woocommerce-error > li').should('contain', 'Erro: A senha fornecida para o e-mail priscila.teste@teste.com.br')
         cy.get('.woocommerce-error').should('exist') // validação se existe a mensagem de erro
-        
-
-        
     });
-
-
-
-
 })
